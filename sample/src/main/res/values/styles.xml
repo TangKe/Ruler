@@ -1,0 +1,15 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="rulerViewStyle">@style/Widget.AppCompat.RulerView</item>
+    </style>
+
+    <style name="Widget.AppCompat.RulerView" parent="Widget.RulerView">
+    </style>
+
+</resources>

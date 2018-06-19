@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="rulerViewStyle" format="reference" />
+
+    <declare-styleable name="RulerView">
+        <attr name="stepWidth" format="dimension" />
+        <attr name="rulerValueFormatter" format="string" />
+        <attr name="scaleColor" format="color|reference" />
+        <attr name="rulerColor" format="color|reference" />
+        <attr name="sectionScaleCount" format="integer" />
+        <attr name="scaleMinHeight" format="dimension" />
+        <attr name="scaleMaxHeight" format="dimension" />
+        <attr name="scaleSize" format="dimension" />
+        <attr name="rulerSize" format="dimension" />
+        <attr name="indicator" format="reference" />
+        <attr name="maxValue" format="integer" />
+        <attr name="minValue" format="integer" />
+        <attr name="value" format="integer" />
+        <attr name="android:textSize" />
+        <attr name="android:textColor" />
+    </declare-styleable>
+</resources>

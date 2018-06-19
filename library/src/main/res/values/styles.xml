@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Widget.RulerView" parent="android:Widget">
+        <item name="indicator">@drawable/ruler_indicator</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#999999</item>
+        <item name="scaleSize">0.5dp</item>
+        <item name="rulerSize">0.5dp</item>
+        <item name="scaleColor">#ffa90c</item>
+        <item name="stepWidth">12.5dp</item>
+        <item name="scaleMaxHeight">20dp</item>
+        <item name="scaleMinHeight">10dp</item>
+        <item name="rulerColor">#e5e5e5</item>
+        <item name="rulerValueFormatter">@null</item>
+    </style>
+</resources>
