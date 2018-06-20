@@ -1,28 +1,29 @@
-# 标尺
+# Ruler
+[查看中文版介绍](https://raw.githubusercontent.com/TangKe/ruler/master/README.zh-cn.md)
 
-[![点击查看视频](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
+[![Click to view demo video](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
 
-提供可以左右滑动的标尺控件，获取到用户选择的值，整个控件为纯绘制。
+Provide a horizontal scrollable ruler widget, developer can get the value which user scrolled to
+The widget is drawn by canvas. All elements is customizable
+Provide a style by default
 
-支持主题配置，提供一套默认主题。
+Customizable elements:
 
-支持所有绘制元素的自定义，可自定义元素
+- distance between two scale
+- scale color
+- ruler color(underline)
+- scale group count
+- indicator(a drawable alway show in center)
+- scale height
+- scale widget
+- ruler height
+- label text color
+- label text size
+- format of the label
 
-- 刻度间距
-- 刻度颜色
-- 标尺颜色
-- 刻度分组数量
-- 指示器
-- 刻度高度
-- 刻度尺寸
-- 标尺尺寸
-- 字体颜色
-- 字体大小
-- 自定义标尺文本格式
+## Install
 
-## 使用方式
-
-1. 在你的根`build.gradle`文件中加入
+1. Add following lines in your project root `build.gradle` file
 
    ```groovy
    allprojects {
@@ -32,7 +33,7 @@
    }
    ```
 
-2. 在你的`build.gradle`的dependencies中加入
+2. Add following lines in your app `build.gradle` file
 
    ```groovy
    dependencies {
@@ -40,9 +41,9 @@
    }
    ```
 
-## 基本用法
+## How to use
 
-1. 在布局中
+1. In xml layout
 
    ```xml
    <?xml version="1.0" encoding="utf-8"?>
@@ -58,27 +59,27 @@
    </LinearLayout>
    ```
 
-2. 或者在`Java`中直接使用`RulerView`类，详细用法以及接口功能，请查看Javadoc
+2. Or use `RulerView` as normal view in your `Java` code, About the api please view the Javadoc for detail.
 
-## 提供的Xml属性
+## Attributes
 
-| 属性名              | 属性类型         | 说明                    |
+| Attribute Name | Attribute Type | Description         |
 | ------------------- | ---------------- | ----------------------- |
-| stepWidth           | dimension        | 刻度之间的间距          |
-| rulerValueFormatter | string           | 用于格式化值的完整类名  |
-| scaleColor          | color\|reference | 设置刻度颜色            |
-| rulerColor          | color\|reference | 设置标尺颜色            |
-| sectionScaleCount   | integer          | 刻度分组数量            |
-| scaleMinHeight      | dimension        | 小刻度高度              |
-| scaleMaxHeight      | dimension        | 大刻度高度              |
-| scaleSize           | dimension        | 刻度宽度                |
-| rulerSize           | dimension        | 标尺高度                |
-| indicator           | reference        | 中间指示器              |
-| maxValue            | integer          | 标尺最大值(范围0-10000) |
-| minValue            | integer          | 标尺最小值(范围0-10000) |
-| value               | integer          | 当前值(范围0-10000)     |
-| android:textSize    | dimension        | 文本尺寸                |
-| android:textColor   | color\|reference | 文本颜色                |
+| stepWidth           | dimension        | Distance between scales |
+| rulerValueFormatter | string           | Ruler value formter class full name, must a subclass of  `RulerValueFormatter` |
+| scaleColor          | color\|reference | Scale color |
+| rulerColor          | color\|reference | Ruler color(underline) |
+| sectionScaleCount   | integer          | Scale group count |
+| scaleMinHeight      | dimension        | Secondary scale height |
+| scaleMaxHeight      | dimension        | Primary scale height |
+| scaleSize           | dimension        | Scale width |
+| rulerSize           | dimension        | Ruler height(underline) |
+| indicator           | reference        | Indicator(always displayed in center) |
+| maxValue            | integer          | Value upper limit(0-10000) |
+| minValue            | integer          | Value lower limit(0-10000) |
+| value               | integer          | Current value(0-10000) |
+| android:textSize    | dimension        | Label text size |
+| android:textColor   | color\|reference | Label text color |
 
 ## License
 

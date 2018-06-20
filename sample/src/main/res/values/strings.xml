@@ -1,36 +1,36 @@
 <resources>
-    <string name="app_name">标尺</string>
-    <string name="label_set_step_width">设置刻度间间距</string>
-    <string name="label_set_scale_color">设置刻度颜色</string>
-    <string name="label_set_ruler_color">设置标尺颜色</string>
-    <string name="label_set_section_scale_count">设置刻度分组数量</string>
-    <string name="label_set_indicator">设置指示器</string>
-    <string name="indicator_default">默认</string>
-    <string name="indicator_dashed_line">虚线</string>
-    <string name="indicator_arrow">箭头</string>
-    <string name="label_set_scale_min_height">设置刻度最小高度</string>
-    <string name="label_set_scale_max_height">设置刻度最大高度</string>
-    <string name="label_set_scale_size">设置刻度尺寸</string>
-    <string name="label_set_ruler_size">设置标尺尺寸</string>
-    <string name="label_set_max_value">设置最大值</string>
-    <string name="label_set_min_value">设置最小值</string>
-    <string name="label_set_value">设置当前值</string>
-    <string name="button_confirm">确认</string>
-    <string name="label_set_text_size">设置字体大小</string>
-    <string name="label_set_text_color">设置字体颜色</string>
-    <string name="label_set_text_format">设置文本格式化</string>
-    <string name="notification_min_value_exceed">最小值不能超过最大值%1$d</string>
-    <string name="notification_max_value_exceed">最大值不能超过最小值%1$d</string>
+    <string name="app_name">Ruler</string>
+    <string name="label_set_step_width">Set the distance between scales</string>
+    <string name="label_set_scale_color">Set scale color</string>
+    <string name="label_set_ruler_color">Set the ruler color</string>
+    <string name="label_set_section_scale_count">Set the scale group count</string>
+    <string name="label_set_indicator">Set Indicator</string>
+    <string name="indicator_default">Default</string>
+    <string name="indicator_dashed_line">Dashed line</string>
+    <string name="indicator_arrow">Arrow</string>
+    <string name="label_set_scale_min_height">Set scale min height</string>
+    <string name="label_set_scale_max_height">Set scale max height</string>
+    <string name="label_set_scale_size">Set scale size</string>
+    <string name="label_set_ruler_size">Set ruler size</string>
+    <string name="label_set_max_value">Set max value</string>
+    <string name="label_set_min_value">Set min value</string>
+    <string name="label_set_value">Set value</string>
+    <string name="button_confirm">Confirm</string>
+    <string name="label_set_text_size">Set label text size</string>
+    <string name="label_set_text_color">Set label text color</string>
+    <string name="label_set_text_format">Set value formatter</string>
+    <string name="notification_min_value_exceed">Min value can not exceed max value %1$d</string>
+    <string name="notification_max_value_exceed">Max value can not under min value %1$d</string>
 
     <string-array name="colors">
-        <item>默认</item>
-        <item>红色</item>
-        <item>蓝色</item>
-        <item>黄色</item>
+        <item>Default</item>
+        <item>Red</item>
+        <item>Blue</item>
+        <item>Yellow</item>
     </string-array>
 
     <string-array name="formatters">
-        <item>默认</item>
-        <item>自定义</item>
+        <item>Default</item>
+        <item>Custom</item>
     </string-array>
 </resources>
