@@ -37,7 +37,7 @@ Customizable elements:
 
    ```groovy
    dependencies {
-     implementation 'com.github.TangKe:ruler:1.0.0'
+     implementation 'com.github.TangKe:Ruler:1.0.0'
    }
    ```
 
