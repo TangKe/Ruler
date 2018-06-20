@@ -373,8 +373,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private class DefaultState {
         private int mStepWidth;
-        private int mScaleColor = Color.BLACK;
-        private int mRulerColor = Color.BLACK;
+        private ColorStateList mScaleColor;
+        private ColorStateList mRulerColor;
         private int mSectionScaleCount;
         private Drawable mIndicator;
         private int mScaleMinHeight;
@@ -384,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private int mMinValue;
         private int mValue;
         private float mTextSize;
-        private ColorStateList mTextColor = ColorStateList.valueOf(Color.BLACK);
+        private ColorStateList mTextColor;
 
         public DefaultState(RulerView ruler) {
             mStepWidth = ruler.getStepWidth();
@@ -406,11 +406,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return mStepWidth;
         }
 
-        public int getScaleColor() {
+        public ColorStateList getScaleColor() {
             return mScaleColor;
         }
 
-        public int getRulerColor() {
+        public ColorStateList getRulerColor() {
             return mRulerColor;
         }
 
