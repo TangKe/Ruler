@@ -1,11 +1,13 @@
 # Ruler[![Release](https://jitpack.io/v/TangKe/Ruler.svg)](https://jitpack.io/#TangKe/Ruler)
-[查看中文介绍](https://raw.githubusercontent.com/TangKe/Ruler/master/README.zh-cn.md)
+[查看中文介绍](https://github.com/TangKe/Ruler/blob/master/README.zh-cn.md)
 
 [![Click to view demo video](https://raw.githubusercontent.com/TangKe/Ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
 
-Provide a horizontal scrollable ruler widget, developer can get the value which user scrolled to
-The widget is drawn by canvas. All elements is customizable
-Provide a style by default
+Provide a horizontal scrollable ruler widget, developer can get the value which user scrolled to.
+
+The widget is drawn by canvas. All elements is customizable.
+
+Provide a style by default.
 
 Customizable elements:
 
