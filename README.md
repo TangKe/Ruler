@@ -1,5 +1,7 @@
 # 标尺
 
+[![点击查看视频](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
+
 提供可以左右滑动的标尺控件，获取到用户选择的值，整个控件为纯绘制。
 
 支持主题配置，提供一套默认主题。
