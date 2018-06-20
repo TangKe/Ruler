@@ -1,8 +1,9 @@
-# 标尺
-[View English Version](https://raw.githubusercontent.com/TangKe/ruler/master/README.md)
-[Demo](https://raw.githubusercontent.com/TangKe/ruler/master/resources/sample.apk)
+# 标尺[![Release](https://jitpack.io/v/TangKe/Ruler.svg)](https://jitpack.io/#TangKe/Ruler)
+[View English Version](https://github.com/TangKe/Ruler/blob/master/README.md)
 
-[![点击查看视频](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.zh-cn.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
+[Demo](https://raw.githubusercontent.com/TangKe/Ruler/master/resources/sample.apk)
+
+[![点击查看视频](https://raw.githubusercontent.com/TangKe/Ruler/master/resources/snapshot.zh-cn.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
 
 提供可以左右滑动的标尺控件，获取到用户选择的值，整个控件为纯绘制。
 
