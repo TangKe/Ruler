@@ -1,5 +1,6 @@
 # 标尺
 [View English Version](https://raw.githubusercontent.com/TangKe/ruler/master/README.md)
+[Demo](https://raw.githubusercontent.com/TangKe/ruler/master/resources/sample.apk)
 
 [![点击查看视频](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.zh-cn.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
 

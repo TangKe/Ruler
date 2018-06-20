@@ -1,5 +1,6 @@
 # Ruler
 [查看中文版介绍](https://raw.githubusercontent.com/TangKe/ruler/master/README.zh-cn.md)
+[Demo](https://raw.githubusercontent.com/TangKe/ruler/master/resources/sample.apk)
 
 [![Click to view demo video](https://raw.githubusercontent.com/TangKe/ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
 
