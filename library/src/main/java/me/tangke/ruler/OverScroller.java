@@ -23,8 +23,6 @@ import android.view.ViewConfiguration;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
 
-import java.io.FileReader;
-
 /**
  * This class encapsulates scrolling with the ability to overshoot the bounds
  * of a scrolling operation. This class is a drop-in replacement for
@@ -653,7 +651,7 @@ class OverScroller {
             mPhysicalCoeff = SensorManager.GRAVITY_EARTH // g (m/s^2)
                     * 39.37f // inch/meter
                     * ppi
-                    * 0.84f; // look and feel tuning
+                    * 0.25f; // look and feel tuning
         }
 
         void updateScroll(float q) {

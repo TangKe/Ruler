@@ -40,6 +40,7 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewDebug;
 
 import com.dianrong.widget.ruler.R;
 
@@ -79,7 +80,7 @@ public class RulerView extends View {
     private int mSectionScaleCount;
 
     /**
-     * 指示器颜色
+     * 指示器
      */
     private Drawable mIndicator;
 
@@ -125,6 +126,7 @@ public class RulerView extends View {
      * 刻度文本大小
      */
     private float mTextSize;
+
     /**
      * 刻度文本颜色
      */
@@ -710,6 +712,7 @@ public class RulerView extends View {
      *
      * @return 单位：像素
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getStepWidth() {
         return mStepWidth;
     }
@@ -719,6 +722,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public ColorStateList getScaleColor() {
         return mScaleColor;
     }
@@ -728,6 +732,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public ColorStateList getRulerColor() {
         return mRulerColor;
     }
@@ -737,6 +742,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getSectionScaleCount() {
         return mSectionScaleCount;
     }
@@ -746,6 +752,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public Drawable getIndicator() {
         return mIndicator;
     }
@@ -755,6 +762,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getScaleMinHeight() {
         return mScaleMinHeight;
     }
@@ -764,6 +772,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getScaleMaxHeight() {
         return mScaleMaxHeight;
     }
@@ -773,6 +782,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getScaleSize() {
         return mScaleSize;
     }
@@ -782,6 +792,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getRulerSize() {
         return mRulerSize;
     }
@@ -791,6 +802,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getMaxValue() {
         return mMaxValue;
     }
@@ -800,6 +812,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public int getMinValue() {
         return mMinValue;
     }
@@ -809,6 +822,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public float getTextSize() {
         return mTextSize;
     }
@@ -818,6 +832,7 @@ public class RulerView extends View {
      *
      * @return
      */
+    @ViewDebug.ExportedProperty(category = "custom")
     public ColorStateList getTextColor() {
         return mTextColor;
     }
