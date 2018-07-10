@@ -1,4 +1,4 @@
-package me.tangke.ruler;
+package ke.tang.ruler.sample;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -17,6 +17,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import ke.tang.ruler.MoneyRulerValueFormatter;
+import ke.tang.ruler.OnRulerValueChangeListener;
+import ke.tang.ruler.RulerView;
 
 /**
  * Created by tangke on 2018/6/14.

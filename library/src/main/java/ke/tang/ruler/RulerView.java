@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.tangke.ruler;
+package ke.tang.ruler;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -41,8 +41,6 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewDebug;
-
-import com.dianrong.widget.ruler.R;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;

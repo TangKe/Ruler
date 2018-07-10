@@ -1,4 +1,4 @@
-# Ruler[![Release](https://jitpack.io/v/TangKe/Ruler.svg)](https://jitpack.io/#TangKe/Ruler)
+# Ruler
 [查看中文介绍](https://github.com/TangKe/Ruler/blob/master/README.zh-cn.md)
 
 [![Click to view demo video](https://raw.githubusercontent.com/TangKe/Ruler/master/resources/snapshot.png)](https://v.youku.com/v_show/id_XMzY3NTIxNzAxNg==.html?spm=a2h3j.8428770.3416059.1)
@@ -25,24 +25,13 @@ Customizable elements:
 
 ## Install
 
-1. Add following lines in your project root `build.gradle` file
+Add following lines in your app `build.gradle` file
 
-   ```groovy
-   allprojects {
-       repositories {
-           maven { uri 'https://jitpack.io' }
-       }
-   }
-   ```
-
-2. Add following lines in your app `build.gradle` file
-
-   ```groovy
-   dependencies {
-     implementation 'com.github.TangKe:Ruler:1.0.0'
-   }
-   ```
-
+```groovy
+dependencies {
+  implementation 'ke.tang:ruler:1.0.0'
+}
+```
 ## How to use
 
 1. In xml layout
@@ -54,7 +43,7 @@ Customizable elements:
        android:layout_height="match_parent"
        android:orientation="vertical">
    
-       <me.tangke.ruler.RulerView
+       <ke.tang.ruler.RulerView
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
    

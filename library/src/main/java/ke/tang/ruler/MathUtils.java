@@ -1,4 +1,4 @@
-package me.tangke.ruler;
+package ke.tang.ruler;
 
 /**
  * Created by TangKe on 2017/3/24.

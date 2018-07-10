@@ -1,8 +1,28 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.TangKe'
-version='1.0.0'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'Ruler'
+
+    publishedGroupId = 'ke.tang'
+    libraryName = 'Ruler'
+    artifact = 'ruler'
+
+    libraryDescription = 'A virtual ruler widget for android'
+
+    siteUrl = 'http://github.com/TangKe/Ruler'
+    gitUrl = 'http://github.com/TangKe/Ruler.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'tangke'
+    developerName = 'Tang Ke'
+    developerEmail = 'tang.ke@me.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 26
@@ -25,6 +45,16 @@ android {
     lintOptions {
         abortOnError false
     }
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+tasks.javadoc {
+    configurations.implementation.setCanBeResolved(true)
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.implementation
+    options.encoding "UTF-8"
+    options.charSet 'UTF-8'
 }
 
 dependencies {

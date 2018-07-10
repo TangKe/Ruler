@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.tangke.ruler;
+package ke.tang.ruler;
 
 import android.content.Context;
 import android.hardware.SensorManager;

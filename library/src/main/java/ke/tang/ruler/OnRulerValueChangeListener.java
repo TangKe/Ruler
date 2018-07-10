@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.tangke.ruler;
+package ke.tang.ruler;
 
 /**
  * 当标尺的值变化时的回调接口

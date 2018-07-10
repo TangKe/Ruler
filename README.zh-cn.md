@@ -1,4 +1,4 @@
-# 标尺[![Release](https://jitpack.io/v/TangKe/Ruler.svg)](https://jitpack.io/#TangKe/Ruler)
+# 标尺
 [View English Version](https://github.com/TangKe/Ruler/blob/master/README.md)
 
 [Demo](https://raw.githubusercontent.com/TangKe/Ruler/master/resources/sample.apk)
@@ -25,24 +25,13 @@
 
 ## 使用方式
 
-1. 在你的根`build.gradle`文件中加入
+在你的`build.gradle`的dependencies中加入
 
-   ```groovy
-   allprojects {
-       repositories {
-           maven { uri 'https://jitpack.io' }
-       }
-   }
-   ```
-
-2. 在你的`build.gradle`的dependencies中加入
-
-   ```groovy
-   dependencies {
-     implementation 'com.github.TangKe:Ruler:1.0.0'
-   }
-   ```
-
+```groovy
+dependencies {
+  implementation 'ke.tang:ruler:1.0.0'
+}
+```
 ## 基本用法
 
 1. 在布局中
@@ -54,7 +43,7 @@
        android:layout_height="match_parent"
        android:orientation="vertical">
 
-       <me.tangke.ruler.RulerView
+       <ke.tang.ruler.RulerView
            android:layout_width="match_parent"
            android:layout_height="wrap_content" />
 

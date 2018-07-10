@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.tangke.ruler;
+package ke.tang.ruler;
 
 /**
  * 用于格式化显示标尺的值
  * 标尺值只允许是从0到{@link RulerView#MAX_VALUE}之间的数值，如果需要展示成其它文本，就需要实现本接口，在{@link #formatValue(int)}方法中实现值与文本对应关系
  * 例如：
- * <table>
- *     <th>
+ * <table summary="">
+ *     <tr>
  *         <td>值</td>
  *         <td>文本</td>
- *     </th>
+ *     </tr>
  *     <tr>
  *         <td>0</td>
  *         <td>零</td>
