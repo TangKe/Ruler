@@ -13,7 +13,7 @@ ext {
     siteUrl = 'http://github.com/TangKe/Ruler'
     gitUrl = 'http://github.com/TangKe/Ruler.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = versions.versionName
 
     developerId = 'tangke'
     developerName = 'Tang Ke'
@@ -25,15 +25,13 @@ ext {
 }
 
 android {
-    compileSdkVersion 26
-    publishNonDefault true
+    compileSdkVersion versions.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 26
-
-        versionCode 1
-        versionName "1.0.0"
+        minSdkVersion versions.minSdkVersion
+        targetSdkVersion versions.targetSdkVersion
+        versionCode versions.versionCode
+        versionName versions.versionName
     }
     buildTypes {
         release {
@@ -59,5 +57,5 @@ tasks.javadoc {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:26.1.0"
+    implementation "com.android.support:appcompat-v7:$versions.library.support"
 }

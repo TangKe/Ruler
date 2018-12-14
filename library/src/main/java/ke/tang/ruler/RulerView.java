@@ -48,9 +48,10 @@ import java.lang.reflect.InvocationTargetException;
 public class RulerView extends View {
     public final static int MAX_VALUE = 10000;
     private final static int STATE_IDLE = 0;
-    private final static int STATE_SCROLL = 1;
-    private final static int STATE_FLING = 2;
-    private final static int STATE_RESET = 3;
+    private final static int STATE_PINCH = 1;
+    private final static int STATE_SCROLL = 2;
+    private final static int STATE_FLING = 3;
+    private final static int STATE_RESET = 4;
 
     /**
      * 刻度宽度
@@ -142,6 +143,8 @@ public class RulerView extends View {
 
     private float mLastX;
     private float mDownX;
+    private float mDownDistance;
+    private float mLastDistance;
 
     private Paint.FontMetrics mFontMetrics;
 
@@ -236,7 +239,7 @@ public class RulerView extends View {
         } else {
             if (needScrollToRoundValuePosition()) {
                 scrollToRoundedValue();
-            } else {
+            } else if (STATE_FLING == mState || STATE_RESET == mState) {
                 mState = STATE_IDLE;
             }
         }
@@ -375,52 +378,84 @@ public class RulerView extends View {
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
         boolean result = super.onTouchEvent(event);
-        switch (event.getAction()) {
+        int pointerCount = event.getPointerCount();
+        int width = getWidth();
+        switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
                 resetStateAndAbortScroll();
                 mDownX = x;
                 break;
-            case MotionEvent.ACTION_MOVE:
-                float dx = x - mLastX;
-                if (Math.abs(x - mDownX) > mTouchSlop) {
-                    getParent().requestDisallowInterceptTouchEvent(true);
-                    mState = STATE_SCROLL;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                if (pointerCount > 1) {
+                    mDownDistance = getMaxDistanceOfPointers(event);
                 }
-
-                if (STATE_SCROLL == mState) {
-                    if (mContentOffset - dx < mMinContentOffset || mContentOffset - dx > mMaxContentOffset) {
-                        dx = dx / 2;
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (pointerCount > 1) {
+                    float currentDistance = getMaxDistanceOfPointers(event);
+                    if (STATE_PINCH != mState && STATE_SCROLL != mState) {
+                        if (Math.abs(currentDistance - mDownDistance) > mTouchSlop) {
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                            mState = STATE_PINCH;
+                        }
                     }
-                    mContentOffset -= dx;
-                    mValue = getValueForContentOffset(mContentOffset);
-                    notifyValueChanged();
-                    invalidate();
+                    if (STATE_PINCH == mState) {
+                        float dDistance = currentDistance - mLastDistance;
+                        mStepWidth = Math.max(1, (int) (mStepWidth + dDistance / 2));
+                        mValue = Math.max(mMinValue, Math.min(mValue, mMaxValue));
+                        mContentOffset = getContentOffsetForValue(mValue);
+                        mMaxContentOffset = getContentOffsetForValue(mMaxValue);
+                        mMinContentOffset = getContentOffsetForValue(mMinValue);
+                        invalidate();
+                    }
+                    mLastDistance = currentDistance;
+                } else {
+                    float dx = x - mLastX;
+                    if (STATE_SCROLL != mState && STATE_PINCH != mState) {
+                        if (Math.abs(x - mDownX) > mTouchSlop) {
+                            getParent().requestDisallowInterceptTouchEvent(true);
+                            mState = STATE_SCROLL;
+                        }
+                    }
+                    if (STATE_SCROLL == mState) {
+                        if (mContentOffset - dx < mMinContentOffset || mContentOffset - dx > mMaxContentOffset) {
+                            dx = dx / 2;
+                        }
+                        mContentOffset -= dx;
+                        mValue = getValueForContentOffset(mContentOffset);
+                        notifyValueChanged();
+                        invalidate();
+                    }
                 }
                 break;
             case MotionEvent.ACTION_UP:
                 getParent().requestDisallowInterceptTouchEvent(false);
-                mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                float velocityX = mVelocityTracker.getXVelocity();
-                if (mContentOffset < mMinContentOffset) {
-                    mState = STATE_RESET;
-                    mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
-                } else if (mContentOffset > mMaxContentOffset) {
-                    mState = STATE_RESET;
-                    mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
-                } else if (Math.abs(velocityX) > mMinimumVelocity) {
-                    mState = STATE_FLING;
-                    int resolvedVelocityX = (int) -velocityX;
+                if (STATE_PINCH != mState) {
+                    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                    float velocityX = mVelocityTracker.getXVelocity();
+                    if (mContentOffset < mMinContentOffset) {
+                        mState = STATE_RESET;
+                        mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
+                    } else if (mContentOffset > mMaxContentOffset) {
+                        mState = STATE_RESET;
+                        mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
+                    } else if (Math.abs(velocityX) > mMinimumVelocity) {
+                        mState = STATE_FLING;
+                        int resolvedVelocityX = (int) -velocityX;
 
-                    //矫正Fling速度，让最后始终停留在我具体的刻度上
-                    int flingOffset = (int) mScroller.getSplineFlingDistance(resolvedVelocityX);
-                    int targetOffset = mContentOffset + flingOffset;
-                    if (targetOffset >= mMinContentOffset && targetOffset <= mMaxContentOffset) {
-                        resolvedVelocityX = mScroller.getSplineFlingVelocity(getContentOffsetForValue(getValueForContentOffset(targetOffset)) - mContentOffset);
+                        //矫正Fling速度，让最后始终停留在我具体的刻度上
+                        int flingOffset = (int) mScroller.getSplineFlingDistance(resolvedVelocityX);
+                        int targetOffset = mContentOffset + flingOffset;
+                        if (targetOffset >= mMinContentOffset && targetOffset <= mMaxContentOffset) {
+                            resolvedVelocityX = mScroller.getSplineFlingVelocity(getContentOffsetForValue(getValueForContentOffset(targetOffset)) - mContentOffset);
+                        }
+                        mScroller.fling(mContentOffset, 0, resolvedVelocityX, 0, mMinContentOffset, mMaxContentOffset, 0, 0, (int) (width / 8f), 0);
+                    } else {
+                        mState = STATE_RESET;
+                        scrollToRoundedValue();
                     }
-                    mScroller.fling(mContentOffset, 0, resolvedVelocityX, 0, mMinContentOffset, mMaxContentOffset, 0, 0, (int) (getWidth() / 8f), 0);
-                } else {
-                    mState = STATE_RESET;
-                    scrollToRoundedValue();
                 }
                 invalidate();
             case MotionEvent.ACTION_CANCEL:
@@ -430,6 +465,17 @@ public class RulerView extends View {
         mVelocityTracker.addMovement(event);
         mLastX = event.getX();
         return true;
+    }
+
+    private float getMaxDistanceOfPointers(MotionEvent event) {
+        final int pointerCount = event.getPointerCount();
+        float maxX = 0, minX = 0;
+        for (int index = 0; index < pointerCount; index++) {
+            float currentX = event.getX(index);
+            maxX = Math.max(currentX, maxX);
+            minX = Math.min(currentX, minX);
+        }
+        return Math.abs(maxX - minX);
     }
 
     /**
@@ -647,7 +693,7 @@ public class RulerView extends View {
      * @param scaleSize
      */
     public void setScaleSize(int scaleSize) {
-        mScaleSize = scaleSize;
+        mScaleSize = Math.max(0, scaleSize);
         requestLayout();
         invalidate();
     }
@@ -658,18 +704,18 @@ public class RulerView extends View {
      * @param rulerSize
      */
     public void setRulerSize(int rulerSize) {
-        mRulerSize = rulerSize;
+        mRulerSize = Math.max(0, rulerSize);
         requestLayout();
         invalidate();
     }
 
     /**
-     * 设置刻度与刻度之间的距离
+     * 设置刻度与刻度之间的距离，必须大于1
      *
      * @param stepWidth 单位：像素
      */
     public void setStepWidth(int stepWidth) {
-        mStepWidth = stepWidth;
+        mStepWidth = Math.max(1, stepWidth);
         setValue(mValue);
     }
 
@@ -679,7 +725,7 @@ public class RulerView extends View {
      * @param sectionScaleCount
      */
     public void setSectionScaleCount(int sectionScaleCount) {
-        mSectionScaleCount = sectionScaleCount;
+        mSectionScaleCount = Math.max(0, sectionScaleCount);
         invalidate();
     }
 
