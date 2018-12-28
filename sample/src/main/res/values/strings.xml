@@ -19,8 +19,10 @@
     <string name="label_set_text_size">Set label text size</string>
     <string name="label_set_text_color">Set label text color</string>
     <string name="label_set_text_format">Set value formatter</string>
+    <string name="label_add_custom_marker">Add custom marker</string>
     <string name="notification_min_value_exceed">Min value can not exceed max value %1$d</string>
     <string name="notification_max_value_exceed">Max value can not under min value %1$d</string>
+    <string name="notification_marker_clicked">Marker clicked</string>
 
     <string-array name="colors">
         <item>Default</item>

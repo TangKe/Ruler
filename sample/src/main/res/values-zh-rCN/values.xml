@@ -20,8 +20,10 @@
     <string name="label_set_text_size">设置字体大小</string>
     <string name="label_set_text_color">设置字体颜色</string>
     <string name="label_set_text_format">设置文本格式化</string>
+    <string name="label_add_custom_marker">增加自定义Marker</string>
     <string name="notification_min_value_exceed">最小值不能超过最大值%1$d</string>
     <string name="notification_max_value_exceed">最大值不能超过最小值%1$d</string>
+    <string name="notification_marker_clicked">标记被点击</string>
 
     <string-array name="colors">
         <item>默认</item>

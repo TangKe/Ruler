@@ -18,6 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ke.tang.ruler.ClickableMarker;
+import ke.tang.ruler.DrawableMarker;
+import ke.tang.ruler.Marker;
 import ke.tang.ruler.MoneyRulerValueFormatter;
 import ke.tang.ruler.OnRulerValueChangeListener;
 import ke.tang.ruler.RulerView;
@@ -26,7 +29,61 @@ import ke.tang.ruler.RulerView;
  * Created by tangke on 2018/6/14.
  */
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
+    private final static int[] MARKER_ASSETS = new int[]{R.drawable.ic_backpack,
+            R.drawable.ic_backpack_2,
+            R.drawable.ic_bill,
+            R.drawable.ic_bookmark,
+            R.drawable.ic_bookshelf,
+            R.drawable.ic_briefcase,
+            R.drawable.ic_bus,
+            R.drawable.ic_calc,
+            R.drawable.ic_candy,
+            R.drawable.ic_car,
+            R.drawable.ic_chalkboard,
+            R.drawable.ic_clock,
+            R.drawable.ic_cloud_check,
+            R.drawable.ic_cloud_down,
+            R.drawable.ic_cloud_error,
+            R.drawable.ic_cloud_refresh,
+            R.drawable.ic_cloud_up,
+            R.drawable.ic_donut,
+            R.drawable.ic_drop,
+            R.drawable.ic_eye,
+            R.drawable.ic_flag,
+            R.drawable.ic_glasses,
+            R.drawable.ic_glove,
+            R.drawable.ic_hamburger,
+            R.drawable.ic_hand,
+            R.drawable.ic_hotdog,
+            R.drawable.ic_knife,
+            R.drawable.ic_label,
+            R.drawable.ic_map,
+            R.drawable.ic_map2,
+            R.drawable.ic_marker,
+            R.drawable.ic_mcfly,
+            R.drawable.ic_medicine,
+            R.drawable.ic_mountain,
+            R.drawable.ic_muffin,
+            R.drawable.ic_open_letter,
+            R.drawable.ic_packman,
+            R.drawable.ic_paper_plane,
+            R.drawable.ic_photo_2,
+            R.drawable.ic_piggy,
+            R.drawable.ic_pin,
+            R.drawable.ic_pizza,
+            R.drawable.ic_r2d2,
+            R.drawable.ic_rocket,
+            R.drawable.ic_sale,
+            R.drawable.ic_skull,
+            R.drawable.ic_speakers,
+            R.drawable.ic_store,
+            R.drawable.ic_tactic,
+            R.drawable.ic_toaster,
+            R.drawable.ic_train,
+            R.drawable.ic_watch,
+            R.drawable.ic_www};
+
     private DefaultState mState;
 
     private TextView mResult;
@@ -47,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SeekBar mTextSize;
     private Spinner mTextColor;
     private Spinner mFormatText;
+    private Button mAddCustomMarker;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -294,7 +352,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mValue = findViewById(R.id.value);
         mSubmitValue = findViewById(R.id.submitValue);
-        mSubmitValue.setOnClickListener(this);
+        mSubmitValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    int value = Integer.parseInt(mValue.getText().toString());
+                    mRuler.setValue(value);
+                } catch (Exception e) {
+
+                }
+            }
+        });
 
         mTextSize = findViewById(R.id.textSize);
         mTextSize.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -362,17 +430,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        try {
-            int value = Integer.parseInt(mValue.getText().toString());
-            mRuler.setValue(value);
-        } catch (Exception e) {
-
-        }
+        mAddCustomMarker = findViewById(R.id.customMarker);
+        mAddCustomMarker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DrawableMarker marker = new DrawableMarker(MainActivity.this, MARKER_ASSETS[(int) (Math.random() * MARKER_ASSETS.length)], mRuler.getValue());
+                marker.setOnMarkerClickListener(new ClickableMarker.OnMarkerClickListener() {
+                    @Override
+                    public void onMarkerClick(Marker m) {
+                        Toast.makeText(MainActivity.this, R.string.notification_marker_clicked, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                mRuler.addMarker(marker);
+            }
+        });
     }
 
     private class DefaultState {

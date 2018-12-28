@@ -22,6 +22,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -35,6 +37,7 @@ import android.text.TextPaint;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -44,6 +47,10 @@ import android.view.ViewDebug;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class RulerView extends View {
     public final static int MAX_VALUE = 10000;
@@ -154,6 +161,25 @@ public class RulerView extends View {
     private int mMinimumVelocity;
     private int mMaximumVelocity;
     private int mTouchSlop;
+    private List<Marker> mMarkers = new ArrayList<>();
+    private Comparator<Marker> mMarkerComparator = new Comparator<Marker>() {
+        @Override
+        public int compare(Marker o1, Marker o2) {
+            int value1 = o1.value();
+            int value2 = o2.value();
+            if (value1 > value2) {
+                return 1;
+            } else if (value1 < value2) {
+                return -1;
+            } else {
+                return 0;
+            }
+        }
+    };
+
+    private Rect mTempRect = new Rect();
+    private RectF mTempRectF = new RectF();
+    private int mMarkerHeight;
 
     public RulerView(Context context) {
         this(context, null);
@@ -259,7 +285,7 @@ public class RulerView extends View {
     }
 
     private int getRoundedValue(int offset) {
-        return Math.round(offset * 1.0f / mStepWidth);
+        return Math.max(mMinValue, Math.min(Math.round(offset * 1.0f / mStepWidth), mMaxValue));
     }
 
     private boolean needScrollToRoundValuePosition() {
@@ -278,6 +304,15 @@ public class RulerView extends View {
             targetHeight = Math.max(mIndicator.getIntrinsicHeight(), targetHeight);
         }
         targetHeight += getPaddingTop() + getPaddingBottom();
+        if (!mMarkers.isEmpty()) {
+            int maxMarkerHeight = 0;
+            for (Marker marker : mMarkers) {
+                marker.getBounds(mTempRect);
+                maxMarkerHeight = Math.max(maxMarkerHeight, mTempRect.height());
+            }
+            targetHeight += maxMarkerHeight;
+            mMarkerHeight = maxMarkerHeight;
+        }
 
         setMeasuredDimension(resolveSize(getSuggestedMinimumWidth() + getPaddingLeft() + getPaddingRight(), widthMeasureSpec), resolveSize(targetHeight, heightMeasureSpec));
     }
@@ -293,6 +328,7 @@ public class RulerView extends View {
         final int paddingBottom = getPaddingBottom();
         final int width = getWidth();
         final int height = getHeight();
+        final int rulerHeight = height - mMarkerHeight;
         final int insetWidth = width - paddingLeft - paddingRight;
         final int halfInsetWidth = insetWidth / 2;
         final float scaleSize = mScaleSize;
@@ -307,7 +343,7 @@ public class RulerView extends View {
         if (null != mTextColor) {
             mLabelPaint.setColor(mTextColor.getColorForState(drawableState, Color.BLACK));
         }
-        final float fontY = height - getPaddingBottom() - rulerSize - mScaleMaxHeight - mFontMetrics.bottom;
+        final float fontY = rulerHeight - getPaddingBottom() - rulerSize - mScaleMaxHeight - mFontMetrics.bottom;
         int count = contentOffset / mStepWidth;
         for (int index = Math.min(count, maxScaleCount); index >= minScaleCount; index--) {
             int scalePosition = index * mStepWidth;
@@ -317,11 +353,11 @@ public class RulerView extends View {
             String label = null != mRulerValueFormatter ? mRulerValueFormatter.formatValue(index) : String.valueOf(index);
             final float labelRight = centerX + mLabelPaint.measureText(label) / 2;
             if (labelRight > 0) {
-                if (0 == index % mSectionScaleCount || index == maxScaleCount || index == maxScaleCount || index == minScaleCount) {
-                    canvas.drawRect(left, height - rulerSize - paddingBottom - mScaleMaxHeight, right, height - rulerSize - paddingBottom, mRulerPaint);
+                if (0 == index % mSectionScaleCount || index == maxScaleCount || index == minScaleCount) {
+                    canvas.drawRect(left, rulerHeight - rulerSize - paddingBottom - mScaleMaxHeight, right, rulerHeight - rulerSize - paddingBottom, mRulerPaint);
                     canvas.drawText(label, centerX, fontY, mLabelPaint);
                 } else {
-                    canvas.drawRect(left, height - rulerSize - paddingBottom - mScaleMinHeight, right, height - rulerSize - paddingBottom, mRulerPaint);
+                    canvas.drawRect(left, rulerHeight - rulerSize - paddingBottom - mScaleMinHeight, right, rulerHeight - rulerSize - paddingBottom, mRulerPaint);
                 }
             } else {
                 break;
@@ -337,11 +373,11 @@ public class RulerView extends View {
             String label = null != mRulerValueFormatter ? mRulerValueFormatter.formatValue(index) : String.valueOf(index);
             final float labelLeft = centerX - mLabelPaint.measureText(label) / 2;
             if (labelLeft < width) {
-                if (0 == index % mSectionScaleCount || index == maxScaleCount || index == maxScaleCount || index == minScaleCount) {
-                    canvas.drawRect(left, height - rulerSize - paddingBottom - mScaleMaxHeight, right, height - rulerSize - paddingBottom, mRulerPaint);
+                if (0 == index % mSectionScaleCount || index == maxScaleCount || index == minScaleCount) {
+                    canvas.drawRect(left, rulerHeight - rulerSize - paddingBottom - mScaleMaxHeight, right, rulerHeight - rulerSize - paddingBottom, mRulerPaint);
                     canvas.drawText(label, centerX, fontY, mLabelPaint);
                 } else {
-                    canvas.drawRect(left, height - rulerSize - paddingBottom - mScaleMinHeight, right, height - rulerSize - paddingBottom, mRulerPaint);
+                    canvas.drawRect(left, rulerHeight - rulerSize - paddingBottom - mScaleMinHeight, right, rulerHeight - rulerSize - paddingBottom, mRulerPaint);
                 }
             } else {
                 break;
@@ -349,7 +385,27 @@ public class RulerView extends View {
         }
         //绘制底部横线
         mRulerPaint.setColor(mRulerColor.isStateful() ? mRulerColor.getColorForState(drawableState, Color.BLACK) : mRulerColor.getDefaultColor());
-        canvas.drawRect(Math.max(0, paddingLeft + halfInsetWidth - contentOffset + minContentOffset), height - paddingBottom - rulerSize, Math.min(width, width - paddingRight - halfInsetWidth + maxContentOffset - contentOffset), height - paddingBottom, mRulerPaint);
+        canvas.drawRect(Math.max(0, paddingLeft + halfInsetWidth - contentOffset + minContentOffset), rulerHeight - paddingBottom - rulerSize, Math.min(width, width - paddingRight - halfInsetWidth + maxContentOffset - contentOffset), rulerHeight - paddingBottom, mRulerPaint);
+
+        //绘制Marker
+        if (!mMarkers.isEmpty()) {
+            for (Marker marker : mMarkers) {
+                int scalePosition = marker.value() * mStepWidth;
+                marker.getBounds(mTempRect);
+                final float centerX = paddingLeft + halfInsetWidth + scalePosition - contentOffset;
+                final float left = centerX - mTempRect.width() / 2;
+                final float right = centerX + mTempRect.width() / 2;
+                final float x = left, y = height - mMarkerHeight;
+                marker.setX(x);
+                marker.setY(y);
+                if (right > 0 || left < width) {
+                    canvas.save();
+                    canvas.translate(x, y);
+                    marker.onDraw(canvas);
+                    canvas.restore();
+                }
+            }
+        }
 
         //绘制指示器
         if (null != mIndicator) {
@@ -357,7 +413,7 @@ public class RulerView extends View {
             if (indicator.isStateful()) {
                 indicator.setState(drawableState);
             }
-            indicator.setBounds(paddingLeft + halfInsetWidth - indicator.getIntrinsicWidth() / 2, paddingTop, paddingLeft + halfInsetWidth + indicator.getIntrinsicWidth() / 2, height - paddingBottom);
+            indicator.setBounds(paddingLeft + halfInsetWidth - indicator.getIntrinsicWidth() / 2, paddingTop, paddingLeft + halfInsetWidth + indicator.getIntrinsicWidth() / 2, rulerHeight - paddingBottom);
             indicator.draw(canvas);
         }
     }
@@ -377,6 +433,7 @@ public class RulerView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         final float x = event.getX();
+        final float y = event.getY();
         boolean result = super.onTouchEvent(event);
         int pointerCount = event.getPointerCount();
         int width = getWidth();
@@ -432,30 +489,52 @@ public class RulerView extends View {
                 break;
             case MotionEvent.ACTION_UP:
                 getParent().requestDisallowInterceptTouchEvent(false);
-                if (STATE_PINCH != mState) {
-                    mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
-                    float velocityX = mVelocityTracker.getXVelocity();
-                    if (mContentOffset < mMinContentOffset) {
-                        mState = STATE_RESET;
-                        mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
-                    } else if (mContentOffset > mMaxContentOffset) {
-                        mState = STATE_RESET;
-                        mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
-                    } else if (Math.abs(velocityX) > mMinimumVelocity) {
-                        mState = STATE_FLING;
-                        int resolvedVelocityX = (int) -velocityX;
-
-                        //矫正Fling速度，让最后始终停留在我具体的刻度上
-                        int flingOffset = (int) mScroller.getSplineFlingDistance(resolvedVelocityX);
-                        int targetOffset = mContentOffset + flingOffset;
-                        if (targetOffset >= mMinContentOffset && targetOffset <= mMaxContentOffset) {
-                            resolvedVelocityX = mScroller.getSplineFlingVelocity(getContentOffsetForValue(getValueForContentOffset(targetOffset)) - mContentOffset);
+                switch (mState) {
+                    case STATE_IDLE:
+                        if (!mMarkers.isEmpty()) {
+                            for (Marker marker : mMarkers) {
+                                marker.getBounds(mTempRect);
+                                mTempRectF.set(mTempRect);
+                                mTempRectF.offset(marker.getX(), marker.getY());
+                                if (mTempRectF.contains(x, y)) {
+                                    marker.performClick();
+                                    //只触发一个
+                                    break;
+                                }
+                            }
                         }
-                        mScroller.fling(mContentOffset, 0, resolvedVelocityX, 0, mMinContentOffset, mMaxContentOffset, 0, 0, (int) (width / 8f), 0);
-                    } else {
+                    case STATE_PINCH:
                         mState = STATE_RESET;
                         scrollToRoundedValue();
-                    }
+                        break;
+                    default:
+                    case STATE_FLING:
+                    case STATE_RESET:
+                    case STATE_SCROLL:
+                        mVelocityTracker.computeCurrentVelocity(1000, mMaximumVelocity);
+                        float velocityX = mVelocityTracker.getXVelocity();
+                        if (mContentOffset < mMinContentOffset) {
+                            mState = STATE_RESET;
+                            mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
+                        } else if (mContentOffset > mMaxContentOffset) {
+                            mState = STATE_RESET;
+                            mScroller.springBack(mContentOffset, 0, mMinContentOffset, mMaxContentOffset, 0, 0);
+                        } else if (Math.abs(velocityX) > mMinimumVelocity) {
+                            mState = STATE_FLING;
+                            int resolvedVelocityX = (int) -velocityX;
+
+                            //矫正Fling速度，让最后始终停留在我具体的刻度上
+                            int flingOffset = (int) mScroller.getSplineFlingDistance(resolvedVelocityX);
+                            int targetOffset = mContentOffset + flingOffset;
+                            if (targetOffset >= mMinContentOffset && targetOffset <= mMaxContentOffset) {
+                                resolvedVelocityX = mScroller.getSplineFlingVelocity(getContentOffsetForValue(getValueForContentOffset(targetOffset)) - mContentOffset);
+                            }
+                            mScroller.fling(mContentOffset, 0, resolvedVelocityX, 0, mMinContentOffset, mMaxContentOffset, 0, 0, (int) (width / 8f), 0);
+                        } else {
+                            mState = STATE_RESET;
+                            scrollToRoundedValue();
+                        }
+                        break;
                 }
                 invalidate();
             case MotionEvent.ACTION_CANCEL:
@@ -886,6 +965,19 @@ public class RulerView extends View {
         return super.verifyDrawable(who) || who == mIndicator;
     }
 
+    public void addMarker(Marker marker) {
+        mMarkers.add(marker);
+        Collections.sort(mMarkers, mMarkerComparator);
+        requestLayout();
+        invalidate();
+    }
+
+    public void removeMarker(Marker marker) {
+        mMarkers.remove(marker);
+        requestLayout();
+        invalidate();
+    }
+
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
         SavedState savedState = (SavedState) state;
@@ -907,6 +999,7 @@ public class RulerView extends View {
         mContentOffset = savedState.mContentOffset;
         mMaxContentOffset = savedState.mMaxContentOffset;
         mMinContentOffset = savedState.mMinContentOffset;
+        mMarkers = savedState.mMarkers;
     }
 
     @Nullable
@@ -930,6 +1023,7 @@ public class RulerView extends View {
         state.mContentOffset = mContentOffset;
         state.mMaxContentOffset = mMaxContentOffset;
         state.mMinContentOffset = mMinContentOffset;
+        state.mMarkers = mMarkers;
         return state;
     }
 
@@ -951,6 +1045,7 @@ public class RulerView extends View {
         private int mContentOffset;
         private int mMaxContentOffset;
         private int mMinContentOffset;
+        private List<Marker> mMarkers;
 
         public SavedState(Parcel source) {
             super(source);
@@ -971,6 +1066,7 @@ public class RulerView extends View {
             mContentOffset = source.readInt();
             mMaxContentOffset = source.readInt();
             mMinContentOffset = source.readInt();
+            mMarkers = source.readArrayList(Marker.class.getClassLoader());
         }
 
         public SavedState(Parcelable superState) {
@@ -997,6 +1093,7 @@ public class RulerView extends View {
             out.writeInt(mContentOffset);
             out.writeInt(mMaxContentOffset);
             out.writeInt(mMinContentOffset);
+            out.writeList(mMarkers);
         }
 
         public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
