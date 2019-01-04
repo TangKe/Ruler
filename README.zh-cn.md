@@ -22,6 +22,8 @@
 - 字体颜色
 - 字体大小
 - 自定义标尺文本格式
+- 自定义可以点击的标记
+- 两指缩放
 
 ## 使用方式
 
@@ -29,7 +31,7 @@
 
 ```groovy
 dependencies {
-  implementation 'ke.tang:ruler:1.0.0'
+  implementation 'ke.tang:ruler:1.0.1'
 }
 ```
 ## 基本用法

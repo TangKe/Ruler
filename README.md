@@ -22,6 +22,8 @@ Customizable elements:
 - label text color
 - label text size
 - format of the label
+- custom clickable marker
+- two finger zoom
 
 ## Install
 
@@ -29,7 +31,7 @@ Add following lines in your app `build.gradle` file
 
 ```groovy
 dependencies {
-  implementation 'ke.tang:ruler:1.0.0'
+  implementation 'ke.tang:ruler:1.0.1'
 }
 ```
 ## How to use
