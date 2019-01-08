@@ -1,5 +1,7 @@
 package ke.tang.ruler;
 
+import android.view.View;
+
 public abstract class ClickableMarker implements Marker {
     private OnMarkerClickListener mOnMarkerClickListener;
 
@@ -26,6 +28,11 @@ public abstract class ClickableMarker implements Marker {
         if (null != mOnMarkerClickListener) {
             mOnMarkerClickListener.onMarkerClick(this);
         }
+    }
+
+    @Override
+    public void onAttach(View v) {
+        
     }
 
     public interface OnMarkerClickListener {

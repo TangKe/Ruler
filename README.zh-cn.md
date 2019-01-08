@@ -31,7 +31,7 @@
 
 ```groovy
 dependencies {
-  implementation 'ke.tang:ruler:1.0.1'
+  implementation 'ke.tang:ruler:1.0.2'
 }
 ```
 ## 基本用法

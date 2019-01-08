@@ -692,7 +692,7 @@ public class RulerView extends View {
      * @param res
      */
     public void setTextColorResource(@ColorRes int res) {
-        setTextColor(res > 0 ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
+        setTextColor(0 != res ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
     }
 
     /**
@@ -701,7 +701,7 @@ public class RulerView extends View {
      * @param res
      */
     public void setRulerColorResource(@ColorRes int res) {
-        setRulerColor(res > 0 ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
+        setRulerColor(0 != res ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
     }
 
     /**
@@ -710,7 +710,7 @@ public class RulerView extends View {
      * @param res
      */
     public void setScaleColorResource(@ColorRes int res) {
-        setScaleColor(res > 0 ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
+        setScaleColor(0 != res ? getResources().getColorStateList(res) : ColorStateList.valueOf(Color.BLACK));
     }
 
     /**
@@ -719,7 +719,7 @@ public class RulerView extends View {
      * @param res
      */
     public void setIndicator(@DrawableRes int res) {
-        setIndicator(res > 0 ? getResources().getDrawable(res) : null);
+        setIndicator(0 != res ? getResources().getDrawable(res) : null);
     }
 
     /**
@@ -968,6 +968,7 @@ public class RulerView extends View {
     public void addMarker(Marker marker) {
         mMarkers.add(marker);
         Collections.sort(mMarkers, mMarkerComparator);
+        marker.onAttach(this);
         requestLayout();
         invalidate();
     }
@@ -1000,6 +1001,9 @@ public class RulerView extends View {
         mMaxContentOffset = savedState.mMaxContentOffset;
         mMinContentOffset = savedState.mMinContentOffset;
         mMarkers = savedState.mMarkers;
+        for (Marker marker : mMarkers) {
+            marker.onAttach(this);
+        }
     }
 
     @Nullable

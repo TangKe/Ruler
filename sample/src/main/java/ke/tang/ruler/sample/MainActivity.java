@@ -434,7 +434,7 @@ public class MainActivity extends AppCompatActivity {
         mAddCustomMarker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawableMarker marker = new DrawableMarker(MainActivity.this, MARKER_ASSETS[(int) (Math.random() * MARKER_ASSETS.length)], mRuler.getValue());
+                DrawableMarker marker = new DrawableMarker(MARKER_ASSETS[(int) (Math.random() * MARKER_ASSETS.length)], mRuler.getValue());
                 marker.setOnMarkerClickListener(new ClickableMarker.OnMarkerClickListener() {
                     @Override
                     public void onMarkerClick(Marker m) {
