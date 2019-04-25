@@ -390,7 +390,8 @@ public class RulerView extends View {
         //绘制Marker
         if (!mMarkers.isEmpty()) {
             for (Marker marker : mMarkers) {
-                int scalePosition = marker.value() * mStepWidth;
+                final int value = marker.value();
+                int scalePosition = value * mStepWidth;
                 marker.getBounds(mTempRect);
                 final float centerX = paddingLeft + halfInsetWidth + scalePosition - contentOffset;
                 final float left = centerX - mTempRect.width() / 2;
@@ -398,7 +399,7 @@ public class RulerView extends View {
                 final float x = left, y = height - mMarkerHeight;
                 marker.setX(x);
                 marker.setY(y);
-                if (right > 0 || left < width) {
+                if ((right > 0 || left < width) && value >= mMinValue && value <= mMaxValue) {
                     canvas.save();
                     canvas.translate(x, y);
                     marker.onDraw(canvas);

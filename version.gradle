@@ -3,8 +3,8 @@ ext {
             compileSdkVersion: 28,
             minSdkVersion    : 15,
             targetSdkVersion : 28,
-            versionCode      : 3,
-            versionName      : '1.0.2',
+            versionCode      : 4,
+            versionName      : '1.0.3',
             library          : [
                     support: '28.0.0'
             ]
