@@ -338,7 +338,8 @@ public class RulerView extends View {
         final int[] drawableState = getDrawableState();
 
         mRulerPaint.setColor(mScaleColor.isStateful() ? mScaleColor.getColorForState(drawableState, Color.BLACK) : mScaleColor.getDefaultColor());
-
+        canvas.save();
+        canvas.clipRect(paddingLeft, paddingTop, width - paddingRight, height - paddingBottom);
         //向前绘制刻度，绘制到左边界停止
         if (null != mTextColor) {
             mLabelPaint.setColor(mTextColor.getColorForState(drawableState, Color.BLACK));
@@ -396,7 +397,7 @@ public class RulerView extends View {
                 final float centerX = paddingLeft + halfInsetWidth + scalePosition - contentOffset;
                 final float left = centerX - mTempRect.width() / 2;
                 final float right = centerX + mTempRect.width() / 2;
-                final float x = left, y = height - mMarkerHeight;
+                final float x = left, y = height - paddingBottom - mMarkerHeight;
                 marker.setX(x);
                 marker.setY(y);
                 if ((right > 0 || left < width) && value >= mMinValue && value <= mMaxValue) {
@@ -417,6 +418,7 @@ public class RulerView extends View {
             indicator.setBounds(paddingLeft + halfInsetWidth - indicator.getIntrinsicWidth() / 2, paddingTop, paddingLeft + halfInsetWidth + indicator.getIntrinsicWidth() / 2, rulerHeight - paddingBottom);
             indicator.draw(canvas);
         }
+        canvas.restore();
     }
 
     private int getValueForContentOffset(int contentOffset) {

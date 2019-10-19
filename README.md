@@ -31,7 +31,7 @@ Add following lines in your app `build.gradle` file
 
 ```groovy
 dependencies {
-  implementation 'ke.tang:ruler:1.0.3'
+  implementation 'ke.tang:ruler:1.0.4'
 }
 ```
 ## How to use

@@ -15,7 +15,10 @@
  */
 package ke.tang.ruler;
 
+import android.widget.ListView;
+
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by TangKe on 2017/3/24.
