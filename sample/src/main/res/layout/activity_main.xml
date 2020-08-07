@@ -19,7 +19,6 @@
         android:id="@+id/ruler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         app:indicator="@drawable/default_ruler_indicator"
         app:maxValue="1000"
         app:scaleColor="?colorAccent" />

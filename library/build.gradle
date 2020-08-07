@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'kotlin-android'
 
 ext {
     bintrayRepo = 'maven'
@@ -53,9 +55,14 @@ tasks.javadoc {
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.implementation
     options.encoding "UTF-8"
     options.charSet 'UTF-8'
+    failOnError false
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "com.android.support:appcompat-v7:$versions.library.support"
+    implementation "androidx.appcompat:appcompat:${versions.library.appCompat}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.library.kotlin}"
+}
+repositories {
+    mavenCentral()
 }

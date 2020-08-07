@@ -4,8 +4,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,12 +16,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ke.tang.ruler.ClickableMarker;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 import ke.tang.ruler.DrawableMarker;
 import ke.tang.ruler.Marker;
 import ke.tang.ruler.MoneyRulerValueFormatter;
+import ke.tang.ruler.OnMarkerClickListener;
 import ke.tang.ruler.OnRulerValueChangeListener;
 import ke.tang.ruler.RulerView;
+
 
 /**
  * Created by tangke on 2018/6/14.
@@ -434,8 +436,8 @@ public class MainActivity extends AppCompatActivity {
         mAddCustomMarker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawableMarker marker = new DrawableMarker(MARKER_ASSETS[(int) (Math.random() * MARKER_ASSETS.length)], mRuler.getValue());
-                marker.setOnMarkerClickListener(new ClickableMarker.OnMarkerClickListener() {
+                DrawableMarker marker = new DrawableMarker(MARKER_ASSETS[(int) (Math.random() * MARKER_ASSETS.length)], mRuler.getValue(), null);
+                marker.setOnMarkerClickListener(new OnMarkerClickListener() {
                     @Override
                     public void onMarkerClick(Marker m) {
                         Toast.makeText(MainActivity.this, R.string.notification_marker_clicked, Toast.LENGTH_SHORT).show();

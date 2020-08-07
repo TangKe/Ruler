@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="icons">
+        <item>@drawable/ic_backpack_2</item>
+        <item>@drawable/ic_bill</item>
+        <item>@drawable/ic_bookmark</item>
+        <item>@drawable/ic_bookshelf</item>
+        <item>@drawable/ic_briefcase</item>
+        <item>@drawable/ic_bus</item>
+        <item>@drawable/ic_calc</item>
+        <item>@drawable/ic_candy</item>
+        <item>@drawable/ic_car</item>
+        <item>@drawable/ic_chalkboard</item>
+        <item>@drawable/ic_clock</item>
+        <item>@drawable/ic_cloud_check</item>
+        <item>@drawable/ic_cloud_down</item>
+        <item>@drawable/ic_cloud_error</item>
+        <item>@drawable/ic_cloud_refresh</item>
+        <item>@drawable/ic_cloud_up</item>
+        <item>@drawable/ic_donut</item>
+        <item>@drawable/ic_drop</item>
+        <item>@drawable/ic_eye</item>
+        <item>@drawable/ic_flag</item>
+        <item>@drawable/ic_glasses</item>
+        <item>@drawable/ic_glove</item>
+        <item>@drawable/ic_hamburger</item>
+        <item>@drawable/ic_hand</item>
+        <item>@drawable/ic_hotdog</item>
+        <item>@drawable/ic_knife</item>
+        <item>@drawable/ic_label</item>
+        <item>@drawable/ic_map</item>
+        <item>@drawable/ic_map2</item>
+        <item>@drawable/ic_marker</item>
+        <item>@drawable/ic_mcfly</item>
+        <item>@drawable/ic_medicine</item>
+        <item>@drawable/ic_mountain</item>
+        <item>@drawable/ic_muffin</item>
+        <item>@drawable/ic_open_letter</item>
+        <item>@drawable/ic_packman</item>
+        <item>@drawable/ic_paper_plane</item>
+        <item>@drawable/ic_photo_2</item>
+        <item>@drawable/ic_piggy</item>
+        <item>@drawable/ic_pin</item>
+        <item>@drawable/ic_pizza</item>
+        <item>@drawable/ic_r2d2</item>
+        <item>@drawable/ic_rocket</item>
+        <item>@drawable/ic_sale</item>
+        <item>@drawable/ic_skull</item>
+        <item>@drawable/ic_speakers</item>
+        <item>@drawable/ic_store</item>
+        <item>@drawable/ic_tactic</item>
+        <item>@drawable/ic_toaster</item>
+        <item>@drawable/ic_train</item>
+        <item>@drawable/ic_watch</item>
+        <item>@drawable/ic_www</item>
+    </array>
+</resources>
