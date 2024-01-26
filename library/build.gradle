@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'kotlin-android'
+apply plugin: 'maven-publish'
 
 ext {
     bintrayRepo = 'maven'
@@ -27,6 +27,7 @@ ext {
 }
 
 android {
+    namespace 'ke.tang.ruler'
     compileSdkVersion versions.compileSdkVersion
 
     defaultConfig {
@@ -34,6 +35,9 @@ android {
         targetSdkVersion versions.targetSdkVersion
         versionCode versions.versionCode
         versionName versions.versionName
+        aarMetadata {
+            minCompileSdk 28
+        }
     }
     buildTypes {
         release {
@@ -45,17 +49,35 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
-
-tasks.javadoc {
-    configurations.implementation.setCanBeResolved(true)
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator)) + configurations.implementation
-    options.encoding "UTF-8"
-    options.charSet 'UTF-8'
-    failOnError false
+publishing {
+    publications {
+        release(MavenPublication) {
+            artifactId = 'Ruler'
+            groupId = 'com.github.Tangke'
+            version = versions.versionName
+            afterEvaluate {
+                from components.release
+            }
+        }
+    }
 }
 
 dependencies {

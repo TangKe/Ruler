@@ -17,7 +17,11 @@ class DrawableMarker : ClickableMarker {
     private val drawableRes: Int
     private val value: Int
 
-    constructor(@DrawableRes drawableRes: Int, value: Int, onMarkerClickListener: OnMarkerClickListener? = null) : super(onMarkerClickListener) {
+    constructor(
+        @DrawableRes drawableRes: Int,
+        value: Int,
+        onMarkerClickListener: OnMarkerClickListener? = null
+    ) : super(onMarkerClickListener) {
         this.drawableRes = drawableRes
         this.value = value
     }
@@ -60,7 +64,7 @@ class DrawableMarker : ClickableMarker {
     companion object {
         val drawableCaches = WeakHashMap<Drawable?, String?>()
 
-        @JvmStatic
+        @JvmField
         val CREATOR = object : Parcelable.Creator<DrawableMarker> {
             override fun createFromParcel(parcel: Parcel): DrawableMarker {
                 return DrawableMarker(parcel)

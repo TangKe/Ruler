@@ -202,8 +202,8 @@ class RulerView @JvmOverloads constructor(context: Context, attrs: AttributeSet?
         targetHeight = max(indicator?.intrinsicHeight ?: 0, targetHeight) //选中指示器高度
         targetHeight += paddingTop + paddingBottom //上下padding
 
-        markerHeight = markers.map { tempRect.apply { it.getBounds(this) }.height() }.max()
-                ?: 0 //Marker最大高度
+        markerHeight = markers.maxOfOrNull { tempRect.apply { it.getBounds(this) }.height() }
+            ?: 0 //Marker最大高度
         targetHeight += markerHeight
         setMeasuredDimension(resolveSize(suggestedMinimumWidth + paddingLeft + paddingRight, widthMeasureSpec), resolveSize(targetHeight, heightMeasureSpec))
     }

@@ -1,14 +1,13 @@
 ext {
     versions = [
-            compileSdkVersion: 28,
+            compileSdkVersion: 34,
             minSdkVersion    : 15,
             targetSdkVersion : 28,
             versionCode      : 6,
             versionName      : '1.0.5',
             library          : [
-                    appCompat: '1.1.0',
-                    kotlin   : '1.3.72',
-                    dokka    : '0.10.1'
+                    appCompat: '1.6.1',
+                    kotlin   : '1.9.22',
             ]
     ]
 }

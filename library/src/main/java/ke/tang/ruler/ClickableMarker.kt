@@ -15,7 +15,7 @@ abstract class ClickableMarker : Marker {
                 }
             }
             field = value
-            if(null != value){
+            if (null != value) {
                 put(value, cacheKey)
             }
         }
@@ -26,7 +26,7 @@ abstract class ClickableMarker : Marker {
     }
 
     constructor(parcel: Parcel) {
-        cacheKey = parcel.readString()
+        cacheKey = parcel.readString() ?: ""
         forEach {
             if (it.value == cacheKey) {
                 onMarkerClickListener = it.key
