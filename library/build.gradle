@@ -2,30 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'Ruler'
-
-    publishedGroupId = 'ke.tang'
-    libraryName = 'Ruler'
-    artifact = 'ruler'
-
-    libraryDescription = 'A virtual ruler widget for android'
-
-    siteUrl = 'http://github.com/TangKe/Ruler'
-    gitUrl = 'http://github.com/TangKe/Ruler.git'
-
-    libraryVersion = versions.versionName
-
-    developerId = 'tangke'
-    developerName = 'Tang Ke'
-    developerEmail = 'tang.ke@me.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
 android {
     namespace 'ke.tang.ruler'
     compileSdkVersion versions.compileSdkVersion
@@ -76,6 +52,27 @@ publishing {
             afterEvaluate {
                 from components.release
             }
+            pom {
+                name = 'ruler'
+                description = 'A virtual ruler widget for android'
+                url = 'http://github.com/TangKe/Ruler'
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'tangke'
+                        name = 'Tang Ke'
+                        email = 'tang.ke@me.com'
+                    }
+                }
+                scm {
+                    url = 'http://github.com/TangKe/Ruler.git'
+                }
+            }
         }
     }
 }
@@ -84,7 +81,4 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "androidx.appcompat:appcompat:${versions.library.appCompat}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.library.kotlin}"
-}
-repositories {
-    mavenCentral()
 }

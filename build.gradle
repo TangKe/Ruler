@@ -6,10 +6,11 @@ buildscript {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven() { url 'https://maven.aliyun.com/nexus/content/repositories/google/' }
         google()
-        jcenter()
+        maven { url 'https://jitpack.io' }
+        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.2'
+        classpath "com.android.tools.build:gradle:${versions.library.gradle}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.library.kotlin}"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -22,11 +23,11 @@ allprojects {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         maven() { url 'https://maven.aliyun.com/nexus/content/repositories/google/' }
         google()
-        jcenter()
         maven { url 'https://jitpack.io' }
+        mavenCentral()
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

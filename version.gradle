@@ -8,6 +8,7 @@ ext {
             library          : [
                     appCompat: '1.6.1',
                     kotlin   : '1.9.22',
+                    gradle   : '8.2.2'
             ]
     ]
 }
