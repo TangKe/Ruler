@@ -5,10 +5,10 @@ ext {
             targetSdkVersion : 28,
             versionCode      : 6,
             versionName      : '1.0.5',
+            kotlin           : '1.9.22',
+            build            : '8.2.2',
             library          : [
                     appCompat: '1.6.1',
-                    kotlin   : '1.9.22',
-                    gradle   : '8.2.2'
             ]
     ]
 }
